@@ -48,6 +48,37 @@ function displayTrainer (trainer) {
 
     const copyShowdownButton = document.querySelector('.trainer-copy-showdown-team');
     copyShowdownButton.dataset.showdownData = trainer.exportInShowdownFormat();
+
+    trainerClass.textContent = trainer.trainerClass;
+    trainerName.textContent = trainer.name;
+
+    displayPokemons(trainer);
+}
+
+function displayPokemons (trainer) {
+    const trainerTeam = document.querySelector('.trainer-team');
+    let pokemonCount = 1;
+    Array
+        .from(trainerTeam.children)
+        .forEach((pokemonElement) => {
+            const pokemon = trainer.team['pokemon'+pokemonCount];
+            pokemonCount++;
+
+            if (!pokemon.hasOwnProperty('showdownData')) {
+                return;
+            }
+
+            pokemonElement.querySelector('.pokemon-name').textContent = pokemon.showdownData.name;
+            pokemonElement.querySelector('.pokemon-ability').textContent = pokemon.showdownData.ability;
+            pokemonElement.querySelector('.pokemon-item').textContent = pokemon.showdownData.heldItem;
+
+            pokemonElement.querySelector('.pokemon-image').src = pokemon.sprites.front_default;
+
+            for (const ev in pokemon.showdownData.evs) {
+                let evElement = pokemonElement.querySelector(`.pokemon-ev[data-ev="${ev.toLowerCase()}"]`).textContent = pokemon.showdownData.evs[ev];
+            }
+        })
+    ;
 }
 
 /** stolen from : https://stackoverflow.com/questions/22624379/how-to-convert-letters-to-numbers-with-javascript **/

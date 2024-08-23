@@ -1,0 +1,34 @@
+body {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.trainer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.trainer-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.trainer-team {
+    flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.pokemon-ev:before {
+    content: attr(data-ev) " : ";
+    text-transform: uppercase;
+}
