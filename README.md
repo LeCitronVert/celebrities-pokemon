@@ -14,6 +14,14 @@ The webpage is hosted on GitHub Pages and can be accessed [here](https://lecitro
 
 You can also run the application locally by cloning the repository or downloading the source code. Keep in mind that, because I'm using ES6 Modules and *.mjs files, you'll need to run the application on a server. Any worth its salt should do.
 
+## OBS mode
+
+This app features an OBS mode. This streamlines the team preview to make it easier to layout in OBS.
+
+Add the following parameters to your URL to enable OBS mode:
+- `?obs=[name]` where name is the name you want to generate a team for. Small caveat : it has to be url encoded. Any should work, such as [this one](https://meyerweb.com/eric/tools/dencoder/).
+- `&obs-bg=[color]` **optionally** where color is the background color of the team preview. It can be any valid CSS color. This is to make it easier to chroma key the background.
+
 ## Credits
 
 - The application uses the [PokeAPI](https://pokeapi.co/) to get the Pokémon data.

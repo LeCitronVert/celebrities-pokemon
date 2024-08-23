@@ -25,6 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener('trainerGenerated', (event) => {
         displayTrainer(event.detail.trainer);
     });
+
+    enableObsMode(pokebank);
 })
 
 function generatePokemonTrainer (pokebank, name = null) {
@@ -98,6 +100,30 @@ function displayPokemons (trainer) {
     ;
 }
 
+function enableObsMode (pokebank) {
+    const search = findGetParameter('obs');
+
+    if (!search) {
+        return;
+    }
+
+    const obsStylesheet = document.createElement('link');
+    obsStylesheet.type = 'text/css';
+    obsStylesheet.href = './style/obs.css';
+    obsStylesheet.rel = 'stylesheet';
+    document.getElementsByTagName('head')[0].appendChild(obsStylesheet);
+
+    const obsBg = findGetParameter('obs-bg');
+    if (obsBg) {
+        document.body.style.backgroundColor = obsBg;
+    }
+
+    // todo : lame girl's hack, need to find a way to wait for the pokedex to be loaded
+    setTimeout(() => {
+        generatePokemonTrainer(pokebank, search);
+    }, 1000);
+}
+
 /** stolen from : https://stackoverflow.com/questions/22624379/how-to-convert-letters-to-numbers-with-javascript **/
 function convertLetterToNumber(str) {
     const start = 96 // "a".charCodeAt(0) - 1
@@ -108,4 +134,19 @@ function convertLetterToNumber(str) {
         const pow = Math.pow(26, len - pos - 1);
         return out + val * pow
     }, 0);
+}
+
+function findGetParameter(parameterName) {
+    let result = null, tmp = [];
+
+    location.search
+        .substr(1)
+        .split("&")
+        .forEach(function (item) {
+            tmp = item.split("=");
+            if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+        })
+    ;
+
+    return result;
 }

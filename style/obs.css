@@ -1,0 +1,14 @@
+/** Since we're already adding CSS with JS we might as well just use !importants here lol **/
+body {
+    background: mediumpurple;
+}
+
+#celebrity-form,
+.pokemon-name,
+.pokemon-nature:after,
+.pokemon-item-image,
+.pokemon-evs
+{
+    display: none !important;
+}
+
