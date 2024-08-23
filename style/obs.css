@@ -5,8 +5,10 @@ body {
 
 #celebrity-form,
 .pokemon-name,
-.pokemon-nature:after,
-.pokemon-item-image,
+.pokemon-nature,
+.pokemon-item,
+.pokemon-ability,
+.pokemon-moves,
 .pokemon-evs
 {
     display: none !important;
