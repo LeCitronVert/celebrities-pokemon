@@ -95,7 +95,6 @@ export class TrainerGenerator {
                     .then(ability => {
                         pokemon.showdownData.ability = this.retrieveNameFromArray(ability.names, ability.name);
 
-                        console.log('ability resolved');
                         resolve();
                     })
                     .catch((error) => {
@@ -121,8 +120,25 @@ export class TrainerGenerator {
                 resolve();
             });
 
+            let movesPromises = [];
+            pokemon.showdownData.moves.forEach((move, index) => {
+                movesPromises.push(new Promise((resolve, reject) => {
+                    pokebank
+                        .pokedexApi
+                        .getMoveByName(move)
+                        .then(moveData => {
+                            pokemon.showdownData.moves[index] = this.retrieveNameFromArray(moveData.names, moveData.name);
+                            resolve();
+                        })
+                        .catch((error) => {
+                            reject(error);
+                        })
+                    ;
+                }));
+            });
+
             return Promise
-                .all([abilityPromise, evsPromise])
+                .all([abilityPromise, evsPromise, ...movesPromises])
                 .then(() => {
                     this.team[teammate] = pokemon;
                     resolve(pokemon);

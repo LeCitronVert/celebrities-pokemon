@@ -75,8 +75,13 @@ function displayPokemons (trainer) {
             pokemonElement.querySelector('.pokemon-image').src = pokemon.sprites.front_default;
 
             for (const ev in pokemon.showdownData.evs) {
-                let evElement = pokemonElement.querySelector(`.pokemon-ev[data-ev="${ev.toLowerCase()}"]`).textContent = pokemon.showdownData.evs[ev];
+                pokemonElement.querySelector(`.pokemon-ev[data-ev="${ev.toLowerCase()}"]`).textContent = pokemon.showdownData.evs[ev];
             }
+
+            pokemon.showdownData.moves.forEach((move, index) => {
+                pokemonElement.querySelector(`.pokemon-move[data-move="${index+1}"]`).textContent = move;
+            });
+
         })
     ;
 }
