@@ -77,6 +77,8 @@ export class TrainerGenerator {
                 ],
                 heldItem: '',
                 nature: '',
+                naturePlus: '',
+                natureMinus: '',
                 evs: {
                     HP: 0,
                     Atk: 0,
@@ -137,8 +139,61 @@ export class TrainerGenerator {
                 }));
             });
 
+            const naturePromise = new Promise((resolve, reject) => {
+                pokebank
+                    .pokedexApi
+                    .getNatureByName(pokebank.natures[Math.floor(generator.random() * pokebank.natures.length)].name)
+                    .then(nature => {
+                        pokemon.showdownData.nature = this.retrieveNameFromArray(nature.names, nature.name);
+
+                        let naturePlusPromise = new Promise((resolve, reject) => {
+                            if (!nature.increased_stat) {
+                                pokemon.showdownData.naturePlus = 'None';
+                                resolve();
+                            }
+
+                            pokebank
+                                .pokedexApi
+                                .getStatByName(nature.increased_stat.name)
+                                .then(stat => {
+                                    pokemon.showdownData.naturePlus = this.retrieveNameFromArray(stat.names, stat.name);
+                                    resolve();
+                                })
+                                .catch((error) => {
+                                    reject(error);
+                                })
+                            ;
+                        });
+
+                        let natureMinusPromise = new Promise((resolve, reject) => {
+                            if (!nature.decreased_stat) {
+                                pokemon.showdownData.natureMinus = 'None';
+                                resolve();
+                            }
+
+                            pokebank
+                                .pokedexApi
+                                .getStatByName(nature.decreased_stat.name)
+                                .then(stat => {
+                                    pokemon.showdownData.natureMinus = this.retrieveNameFromArray(stat.names, stat.name);
+                                    resolve();
+                                })
+                                .catch((error) => {
+                                    reject(error);
+                                })
+                            ;
+                        });
+
+                        Promise.all([naturePlusPromise, natureMinusPromise]).then(() => { resolve(); });
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    })
+                ;
+            });
+
             return Promise
-                .all([abilityPromise, evsPromise, ...movesPromises])
+                .all([abilityPromise, evsPromise, ...movesPromises, naturePromise])
                 .then(() => {
                     this.team[teammate] = pokemon;
                     resolve(pokemon);

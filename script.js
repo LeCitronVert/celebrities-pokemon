@@ -58,6 +58,7 @@ function displayTrainer (trainer) {
 function displayPokemons (trainer) {
     const trainerTeam = document.querySelector('.trainer-team');
     let pokemonCount = 1;
+
     Array
         .from(trainerTeam.children)
         .forEach((pokemonElement) => {
@@ -82,6 +83,10 @@ function displayPokemons (trainer) {
                 pokemonElement.querySelector(`.pokemon-move[data-move="${index+1}"]`).textContent = move;
             });
 
+            let natureElement = pokemonElement.querySelector('.pokemon-nature');
+            natureElement.textContent = pokemon.showdownData.nature;
+            natureElement.dataset.plusStat = pokemon.showdownData.naturePlus;
+            natureElement.dataset.minusStat = pokemon.showdownData.natureMinus;
         })
     ;
 }

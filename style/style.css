@@ -32,3 +32,12 @@ body {
     content: attr(data-ev) " : ";
     text-transform: uppercase;
 }
+
+.pokemon-nature {
+    display: flex;
+    flex-direction: column;
+}
+
+.pokemon-nature:after {
+    content: "+ " attr(data-plus-stat) " - " attr(data-minus-stat);
+}
