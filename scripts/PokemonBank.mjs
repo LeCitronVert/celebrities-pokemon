@@ -1,6 +1,7 @@
-import { trainerSpriteList} from "./SpriteBank.mjs";
+import { trainerSpriteList } from "./SpriteBank.mjs";
 
 export class PokemonBank {
+    itemList = [];
     natures = [];
     pokemonCount;
     pokemons = [];
@@ -43,6 +44,15 @@ export class PokemonBank {
             })
         ;
 
+        this.pokedexApi
+            .getItemCategoryByName('held-items')
+            .then(itemList => {
+                this.itemList = itemList.items;
+            })
+            .catch((error) => {
+                // Todo : I'll handle errors later i'm eepy
+            })
+        ;
 
     }
 }

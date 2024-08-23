@@ -72,7 +72,6 @@ function displayPokemons (trainer) {
 
             pokemonElement.querySelector('.pokemon-name').textContent = pokemon.showdownData.name;
             pokemonElement.querySelector('.pokemon-ability').textContent = pokemon.showdownData.ability;
-            pokemonElement.querySelector('.pokemon-item').textContent = pokemon.showdownData.heldItem;
 
             pokemonElement.querySelector('.pokemon-image').src = pokemon.sprites.front_default;
 
@@ -88,6 +87,9 @@ function displayPokemons (trainer) {
             natureElement.textContent = pokemon.showdownData.nature;
             natureElement.dataset.plusStat = pokemon.showdownData.naturePlus;
             natureElement.dataset.minusStat = pokemon.showdownData.natureMinus;
+
+            pokemonElement.querySelector('.pokemon-item-name').textContent = pokemon.showdownData.heldItem;
+            pokemonElement.querySelector('.pokemon-item-image').src = pokemon.showdownData.heldItemSprite;
         })
     ;
 }

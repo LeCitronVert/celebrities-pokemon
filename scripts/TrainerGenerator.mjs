@@ -19,6 +19,8 @@ export class TrainerGenerator {
         this.name = trainerName;
         let pokemonPromiseList = [];
 
+        let heldItemList = { ...pokebank.itemList };
+
         // Build Team
         for (const teammate in this.team) {
             let localPokemon = pokebank.pokemons[this.#generatePokemonId(generator, pokebank)];
@@ -28,6 +30,9 @@ export class TrainerGenerator {
                     .then((pokemon) => {
                         pokebank.pokedexApi.getPokemonSpeciesByName(localPokemon.entry_number)
                             .then((pokemonSpecies) => {
+                                let heldItemIndex = Math.floor(generator.random() * Object.keys(heldItemList).length);
+                                pokemon.heldItem = heldItemList[heldItemIndex];
+
                                 this
                                     .#generateShowdownData({...pokemon, ...pokemonSpecies}, generator, pokebank, teammate)
                                     .then(() => { resolve(); })
@@ -77,6 +82,7 @@ export class TrainerGenerator {
                     pokemon.moves[Math.floor(generator.random() * pokemon.moves.length)].move.name,
                 ],
                 heldItem: '',
+                heldItemSprite: '',
                 nature: '',
                 naturePlus: '',
                 natureMinus: '',
@@ -193,8 +199,23 @@ export class TrainerGenerator {
                 ;
             });
 
+            const heldItemPromise = new Promise((resolve, reject) => {
+                pokebank
+                    .pokedexApi
+                    .getItemByName(pokemon.heldItem.name)
+                    .then(item => {
+                        pokemon.showdownData.heldItem = this.retrieveNameFromArray(item.names, item.name);
+                        pokemon.showdownData.heldItemSprite = item.sprites.default || './extra/placeholder.png';
+                        resolve();
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    })
+                ;
+            });
+
             return Promise
-                .all([abilityPromise, evsPromise, ...movesPromises, naturePromise])
+                .all([abilityPromise, evsPromise, ...movesPromises, naturePromise, heldItemPromise])
                 .then(() => {
                     this.team[teammate] = pokemon;
                     resolve(pokemon);
