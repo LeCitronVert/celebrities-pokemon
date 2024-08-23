@@ -230,17 +230,15 @@ export class TrainerGenerator {
         for (const teammate in this.team) {
             const showdownData = this.team[teammate].showdownData;
 
-            showdownString += `
-                ${showdownData.name} ${showdownData.heldItem ? `@ ${showdownData.heldItem}` : ''}\n
-                Ability: ${showdownData.ability}\n
-                EVs: ${showdownData.evs.HP} HP / ${showdownData.evs.Atk} Atk / ${showdownData.evs.Def} Def / ${showdownData.evs.SpA} SpA / ${showdownData.evs.SpD} SpD / ${showdownData.evs.Spe} Spe\n
-                ${showdownData.nature} Nature\n
-                - ${showdownData.moves[0]}\n
-                - ${showdownData.moves[1]}\n
-                - ${showdownData.moves[2]}\n
-                - ${showdownData.moves[3]}\n
-                \n\n
-            `;
+            showdownString += `${showdownData.name} ${showdownData.heldItem ? `@ ${showdownData.heldItem}` : ''}\n` +
+                `Ability: ${showdownData.ability}\n` +
+                `EVs: ${showdownData.evs.HP} HP / ${showdownData.evs.Atk} Atk / ${showdownData.evs.Def} Def / ${showdownData.evs.SpA} SpA / ${showdownData.evs.SpD} SpD / ${showdownData.evs.Spe} Spe\n` +
+                `${showdownData.nature} Nature\n` +
+                `- ${showdownData.moves[0]}\n` +
+                `- ${showdownData.moves[1]}\n` +
+                `- ${showdownData.moves[2]}\n` +
+                `- ${showdownData.moves[3]}\n\n`
+            ;
         }
 
         return showdownString;
