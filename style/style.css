@@ -1,43 +1,175 @@
 body {
+    /** Stolen from Bulbapedia's Steven Stone page */
+    --dark-bg: #3E6978;
+    --normal-bg: #60A1B8;
+    --light-bg: #98C2D1;
+
     width: 100%;
     height: 100%;
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    gap: 10vh;
+
+    padding: 10vh 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
 }
 
 .trainer {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+
+    border: solid 1px var(--dark-bg);
+    border-radius: 10px;
+    background-color: var(--normal-bg);
+
+    width: 90%;
 }
 
 .trainer-info {
+    box-sizing: border-box;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    border: solid 1px var(--dark-bg);
+    border-radius: 50%;
+    background-color: var(--light-bg);
+
+    padding: 40px 20px;
+
+    width: 200px;
+    height: 200px;
+
+    text-align: center;
+}
+
+.trainer-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    object-position: center;
+    margin-bottom: auto;
 }
 
 .trainer-team {
-    flex-basis: 100%;
     display: flex;
-    align-items: center;
+    justify-content: space-around;
+    align-items: stretch;
     flex-wrap: wrap;
+    flex: 1;
+    gap: 5%;
+    padding: 0 2%;
+}
+
+.trainer-pokemon {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+
+    border: solid 1px var(--dark-bg);
+    border-radius: 10px;
+    background-color: var(--light-bg);
+
+    text-align: center;
+
+    padding: 10px 0;
+}
+
+.pokemon-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    object-position: center;
+}
+
+.pokemon-evs {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    padding: 0;
+    margin: 2vh 0;
+}
+
+.pokemon-ev {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .pokemon-ev:before {
     content: attr(data-ev) " : ";
+    font-weight: bold;
     text-transform: uppercase;
+}
+
+.pokemon-ev[data-ev="hp"] {
+    content: " " attr(data-ev) " : ";
 }
 
 .pokemon-nature {
     display: flex;
     flex-direction: column;
+    margin-bottom: 10px;
+    white-space: pre;
 }
 
 .pokemon-nature:after {
-    content: "+ " attr(data-plus-stat) " - " attr(data-minus-stat);
+    content: "+ " attr(data-plus-stat) "  \A - " attr(data-minus-stat);
+    font-style: italic;
+    font-size: 0.8rem;
+}
+
+.pokemon-item {
+    margin-bottom: 2vh;
+}
+
+.pokemon-item-image {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    object-position: center;
+}
+
+.pokemon-moves {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    .trainer {
+        flex-direction: column;
+    }
+
+    .trainer-info {
+        margin-bottom: 2vh;
+    }
+
+    .trainer-team {
+        padding: 0;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        gap: 5vh;
+    }
+
+    .trainer-pokemon {
+        width: 90%;
+    }
 }

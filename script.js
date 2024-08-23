@@ -50,7 +50,11 @@ function displayTrainer (trainer) {
     copyShowdownButton.dataset.showdownData = trainer.exportInShowdownFormat();
 
     trainerClass.textContent = trainer.trainerClass;
-    trainerName.textContent = trainer.name;
+    let trainerNameString = trainer.name;
+    if (16 < trainerNameString.length) {
+        trainerNameString = trainerNameString.substring(0, 16) + '.';
+    }
+    trainerName.textContent = trainerNameString;
     trainerImage.src = './sprites/' + trainer.trainerSprite;
 
     displayPokemons(trainer);
