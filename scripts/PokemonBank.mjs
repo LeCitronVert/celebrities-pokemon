@@ -1,12 +1,16 @@
+import { trainerSpriteList} from "./SpriteBank.mjs";
+
 export class PokemonBank {
     natures = [];
     pokemonCount;
     pokemons = [];
     pokedexApi;
     stats = [];
+    trainerSpriteList = [];
 
     constructor(pokedex) {
         this.pokedexApi = pokedex;
+        this.trainerSpriteList = trainerSpriteList;
 
         this.pokedexApi
             .getPokedexByName('national')
@@ -38,5 +42,7 @@ export class PokemonBank {
                 // Todo : I'll handle errors later i'm eepy
             })
         ;
+
+
     }
 }

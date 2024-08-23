@@ -9,6 +9,7 @@ export class TrainerGenerator {
         pokemon6: [],
     };
     trainerClass = 'Pokémon Trainer';
+    trainerSprite = '';
 
     maxEvs = 510;
     maxEvsPerStat = 252;
@@ -47,7 +48,7 @@ export class TrainerGenerator {
         }
 
         // Build TrainerClass
-        // todo
+        this.trainerSprite = pokebank.trainerSpriteList[Math.floor(generator.random() * pokebank.trainerSpriteList.length)];
 
         Promise
             .all(pokemonPromiseList)

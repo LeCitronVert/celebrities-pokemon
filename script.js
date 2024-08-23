@@ -51,6 +51,7 @@ function displayTrainer (trainer) {
 
     trainerClass.textContent = trainer.trainerClass;
     trainerName.textContent = trainer.name;
+    trainerImage.src = './sprites/' + trainer.trainerSprite;
 
     displayPokemons(trainer);
 }
